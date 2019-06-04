@@ -1,0 +1,42 @@
+<div id="home">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 offset-2">
+        <h1>{{msg}}</h1>
+        <h2>Enter User Info Here</h2>
+        <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="Username">Username</label>
+            <input type="text" id="username-box" class="form-control" aria-describedby="example-text" placeholder="Username">
+          </div>
+          <button id="joinGame" class="btn btn-primary float-right">Join Game</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="player-wait-modal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Please Wait</h5>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body">Waiting for Opponent...</div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script>
+  $("#joinGame").click(function(){
+    $.post("/api/joinGame", $("#username-box").text().trim(), function(data) {
+      var matchJSON = JSON.parse(data)
+      $('#player-wait-modal').modal()
+    })
+  })
+</script>
