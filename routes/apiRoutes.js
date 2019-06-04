@@ -21,10 +21,4 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
-
-  app.joinGame("/api/joinGame/:username", function(req, res) {
-    db.Users.create(req.params.username).then(function(response){
-      res.json(response);
-    });
-  });
 };
