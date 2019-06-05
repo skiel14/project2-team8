@@ -16,27 +16,6 @@
   </div>
 </div>
 
-<div id="player-wait-modal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Please Wait</h5>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div id="modal-body" class="modal-body">Waiting for Opponent...</div>
-      <div class="modal-footer"></div>
-    </div>
-  </div>
-</div>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
-<script>
-  $("#joinGame").click(function(){
-    $.post("/api/joinGame", $("#username-box").text().trim(), function(data) {
-      var matchJSON = JSON.parse(data)
-      $('#player-wait-modal').modal()
-    })
-  })
-</script>
+<script src="/js/userInput.js"></script>

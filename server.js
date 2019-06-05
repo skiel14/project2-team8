@@ -44,4 +44,7 @@ db.sequelize.sync(syncOptions).then(function() {
   });
 });
 
+//Require all Game Logic
+require("./gameLogic/joingame.js");
+
 module.exports = app;

@@ -21,4 +21,18 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
+
+  // Create new user
+  app.post("/api/user/create/:username", function(req, res) {
+    db.User.create({ username: req.params.username }).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
+
+  // Check User Queue
+  app.post("app/users/queue/", function(req, res){
+    db.User.findAll({ pair: false }).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
 };
