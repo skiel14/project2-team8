@@ -17,7 +17,9 @@ module.exports = function(app) {
 
   // Delete an example by id
   app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
+    db.Example.destroy({ where: { id: req.params.id } }).then(function(
+      dbExample
+    ) {
       res.json(dbExample);
     });
   });
@@ -30,9 +32,19 @@ module.exports = function(app) {
   });
 
   // Check User Queue
-  app.post("app/users/queue/", function(req, res){
-    db.User.findAll({ pair: false }).then(function(dbUser) {
+  app.post("/api/user/queue", function(req, res) {
+    db.User.findAll({ where: { pair: false } }).then(function(dbUser) {
       res.json(dbUser);
+    });
+  });
+
+  // Start Game
+  app.post("/api/game/start", function(req, res) {
+    db.User.findAll({ where: { pair: false } }).then(function(User) {
+      User.forEach(function(User) {
+        User.update({ pair: true });
+      });
+      res.json(User);
     });
   });
 };

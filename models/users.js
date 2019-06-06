@@ -6,5 +6,9 @@ module.exports = function(sequelize, DataTypes) {
     gameId: DataTypes.STRING,
     currentRound: DataTypes.INTEGER
   });
+
+  Users.associate = function(models) {
+    models.Users.belongsTo(models.Task);
+  };
   return Users;
 };
