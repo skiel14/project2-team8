@@ -7,8 +7,8 @@ module.exports = function(sequelize, DataTypes) {
     currentRound: DataTypes.INTEGER
   });
 
-  Users.associate = function(models) {
-    models.Users.belongsTo(models.Task);
-  };
+  //Users.associate = function(models) {
+   // models.Users.belongsTo(models.Task);
+  //};
   return Users;
 };
