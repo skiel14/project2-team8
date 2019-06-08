@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
+    "username": "dummy",
+    "password": "password",
     "database": "triviaGameDB",
     "host": "localhost",
     "dialect": "mysql"

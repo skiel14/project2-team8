@@ -1,11 +1,11 @@
 var myUserID;
 var intervalclr;
 
-$("#joinGame").click(function(event) {
+$("#startButton").click(function(event) {
   event.preventDefault();
   var postReq =
     "/api/user/create/" +
-    $("#username-box")
+    $("#playerNameText")
       .val()
       .trim();
   console.log(postReq);

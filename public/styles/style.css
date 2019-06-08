@@ -25,6 +25,9 @@ body {
   width: 90%;
 }
 
+#player-wait-modal {
+  color: black
+}
 
 
 /*  =====  CONTENT  =====  */
