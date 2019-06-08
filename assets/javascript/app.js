@@ -1,3 +1,5 @@
+console.log("hi");
+
 var questions = [
   {
     questionType: "multiChoice",
@@ -110,17 +112,17 @@ var questions = [
   }
 ];
 
-var thisQuestion = questions[1],
+var thisQuestion = questions[0],
   questionNumber = 1,
-  // playerName,
+  //playerName,
   seconds = 300000,
   correctAnswers,
   incorrectAnswers,
   labels = ["first", "second", "third", "forth"];
 
 //  Click to start, then display questions
-$("#startButton").on("click", function() {
-  // playerName = $("#playerNameText").val();
+$("#startButton").on("click", function() { console.log('onClick');
+  //playerName = $("#playerNameText").val();
   displayQuestion();
 
   $("#doneButton").css("display", "block");
@@ -128,14 +130,17 @@ $("#startButton").on("click", function() {
 });
 
 // Display the questions
-var displayQuestion = function() {
+var displayQuestion = function() { console.log('Starting displayQuestion');
   $("#questions")
     .children()
     .not("#doneButton")
     .remove();
 
+  console.log("thisQuestion.questionType = " + thisQuestion.questionType);
+
   // Display a question -- eventually from Sarah's API call
   $("#questionText").text(questionNumber + ".  " + thisQuestion.question);
+
 
   // Build lists of 4 radio buttons & answers for each question
   if (thisQuestion.questionType === "trueFalse") {
