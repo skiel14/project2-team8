@@ -121,7 +121,8 @@ var thisQuestion = questions[0],
   labels = ["first", "second", "third", "forth"];
 
 //  Click to start, then display questions
-$("#startButton").on("click", function() { console.log('onClick');
+$("#startButton").on("click", function() {
+  console.log("onClick");
   //playerName = $("#playerNameText").val();
   displayQuestion();
 
@@ -130,7 +131,8 @@ $("#startButton").on("click", function() { console.log('onClick');
 });
 
 // Display the questions
-var displayQuestion = function() { console.log('Starting displayQuestion');
+var displayQuestion = function() {
+  console.log("Starting displayQuestion");
   $("#questions")
     .children()
     .not("#doneButton")
@@ -140,7 +142,6 @@ var displayQuestion = function() { console.log('Starting displayQuestion');
 
   // Display a question -- eventually from Sarah's API call
   $("#questionText").text(questionNumber + ".  " + thisQuestion.question);
-
 
   // Build lists of 4 radio buttons & answers for each question
   if (thisQuestion.questionType === "trueFalse") {
