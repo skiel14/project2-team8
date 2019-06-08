@@ -27,7 +27,7 @@ function usersInQueue() {
         return e.id === myUserID;
       }).length > 0
     ) {
-      console.log("loop continues")
+      console.log("loop continues");
       for (i = 0; i < data.length; i++) {
         var userList = $("<h6>");
         var newHead = userList.text(data[i].username);
@@ -46,4 +46,8 @@ function startGame() {
   $.post(postReq, function(data) {
     console.log(data);
   });
+}
+
+if (myUserID === "askdlfasjdfsaldkfjds") {
+  startGame();
 }

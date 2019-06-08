@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   //Users.associate = function(models) {
-   // models.Users.belongsTo(models.Task);
+  // models.Users.belongsTo(models.Task);
   //};
   return Users;
 };
