@@ -23,4 +23,28 @@ module.exports = function(app) {
       res.json(dbExample);
     });
   });
+
+  // Create new user
+  app.post("/api/user/create/:username", function(req, res) {
+    db.User.create({ username: req.params.username }).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
+
+  // Check User Queue
+  app.post("/api/user/queue", function(req, res) {
+    db.User.findAll({ where: { pair: false } }).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
+
+  // Start Game
+  app.post("/api/game/start", function(req, res) {
+    db.User.findAll({ where: { pair: false } }).then(function(User) {
+      User.forEach(function(User) {
+        User.update({ pair: true });
+      });
+      res.json(User);
+    });
+  });
 };

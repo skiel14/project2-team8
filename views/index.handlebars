@@ -1,33 +1,60 @@
-<div id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
-          </div>
-          <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
-          </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
-        </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
+<div id="gameBoard">
+  <h2>Totally Tubular Trivia!</h2>
+  <div id="timeRemaining">
+    <div>Time Remaining: </div>
+    <div id="secondsRemaining">30</div>
+    <div> Seconds</div>    
+  </div>
+
+  <form id="form1">
+    <button type="button" id="playerNameButton">Player: </button>
+    <input type="text" id="playerNameText" name="playertNameText" placeholder="Username">
+    <button type="button" class="btn" id="startButton">Join Game</button>
+  </form>
+
+  <div id="questionsAndAnswers" class="WTF">
+    <div class="row" id="questionText">
+      <div class="col-md-1"></div>
+    </div>
+    <div class="row" id="answers">
+      <div class="row" id="answers01">
+        <div class="col-md-2">
+          <span class="answer" id="answer0"></span>
+          <span class="answer" id="answer1"></span>
+        </div>
       </div>
+      <div class="row" id="answers23 answers">
+        <div class="col-md-2" id="questionsCD">
+          <div class="answer" id="answer2"></div>
+          <div class="answer" id="answer3"></div>
+        </div>
+      </div>
+    </div>
+  </div>  <!--  questionsAndAnswers  -->
+
+</div>  <!--  gameBoard  -->
+
+<div id="results">
+  <h2>Results</h2>
+  <hr>
+  <p id="correctAnswers">Correct Answers: </p>
+  <p id="incorrectAnswers">Incorrect Answers: </p>
+  <button type="button" id="playAgainButton">Play Again</button>
+</div>
+
+<div id="player-wait-modal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Please Wait</h5>
+          <span aria-hidden="true"></span>
+      </div>
+      <div id="modal-body" class="modal-body">Waiting for Opponents...
+        <h4>Current Users in Queue: </h4>
+        <div id="usersGoHere"></div>
+      </div>
+      <div id="user-list"></div>
+      <div class="modal-footer"></div>
     </div>
   </div>
 </div>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
