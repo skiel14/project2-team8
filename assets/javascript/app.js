@@ -1,3 +1,5 @@
+console.log("hi");
+
 var questions = [
   {
     questionType: "multiChoice",
@@ -110,9 +112,9 @@ var questions = [
   }
 ];
 
-var thisQuestion = questions[1],
+var thisQuestion = questions[0],
   questionNumber = 1,
-  // playerName,
+  //playerName,
   seconds = 300000,
   correctAnswers,
   incorrectAnswers,
@@ -120,7 +122,8 @@ var thisQuestion = questions[1],
 
 //  Click to start, then display questions
 $("#startButton").on("click", function() {
-  // playerName = $("#playerNameText").val();
+  console.log("onClick");
+  //playerName = $("#playerNameText").val();
   displayQuestion();
 
   $("#doneButton").css("display", "block");
@@ -129,10 +132,13 @@ $("#startButton").on("click", function() {
 
 // Display the questions
 var displayQuestion = function() {
+  console.log("Starting displayQuestion");
   $("#questions")
     .children()
     .not("#doneButton")
     .remove();
+
+  console.log("thisQuestion.questionType = " + thisQuestion.questionType);
 
   // Display a question -- eventually from Sarah's API call
   $("#questionText").text(questionNumber + ".  " + thisQuestion.question);

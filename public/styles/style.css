@@ -2,7 +2,7 @@
 /*  =====  LAYOUT  =====  */
 
 body {
-  background: url(../images/bg1.jpg) no-repeat;
+  background-color: #ffc857;
   background-size: cover;
   font-family: Raleway;
   color: white;
@@ -11,7 +11,7 @@ body {
 
 #gameBoard {
   width: 1024px; height: 100%;
-  background-color: #035064;
+  background-color: #544759;
   margin-bottom: 5%;
   margin: 20px auto;
   border-radius: 20px;
@@ -19,15 +19,12 @@ body {
   text-align: center;
 }
 
-#questionsAndAnswers {
+#qAndA {
   margin: 0 auto;
   text-align: left;
   width: 90%;
 }
 
-#player-wait-modal {
-  color: black
-}
 
 
 /*  =====  CONTENT  =====  */
@@ -37,12 +34,12 @@ body {
 /*  =====  GRAPHICS  =====  */
 
 button {
-  background-color: #fba945;
-  border: 1px solid #023340;
+  background-color: #ffc857;
+  border: 1px solid #ffc857;
   border-radius: 5px;
   font-family: Great Vibes;
-	color: white;
-	font-size: 24px;
+	color: #0d7a80;
+	font-size: 28px;
 	letter-spacing: 5px;
 	padding: 5px 50px 0px;
 	margin: 1px auto;
@@ -62,21 +59,21 @@ input[type=radio] {
 }
 
 hr {
-  border-top: 1px solid #fba945;
+  border-top: 1px solid #ffc857;
   margin: 10px 0px 15px;
   padding: 0px 10px;
 }
 
 input[type=text], select {
   display: inline-block;
-  border: 1px solid #fba945;
+  border: 1px solid #ffc857;
   border-radius: 5px;
   box-sizing: border-box;
   outline: none;
 
   font-weight: bold;
   font-size: 18px;
-  color: #035064;
+  color: #0d7a80;
   margin: 8px 0px 8px;
   padding: 6px 20px;
 }
@@ -98,21 +95,19 @@ input[type=text]:focus, select {
 /*  =====  TEXT  =====  */
 
 
-.col-md-2 span { display: inline; }
-
 h1, h3, hr { margin: 10px 0px; }
 
 h1 {
   font-family: Great Vibes;
   font-size: 42px;
-  color: #fba945;
+  color: #ffc857;
   letter-spacing: 5px;
 }
 
 h2, .timeRemaining {
   font-family: Great Vibes;
   font-size: 60px;
-  color: #fba945;
+  color: #ffc857;
   letter-spacing: 7px;
   margin: 5px 0px;
 }
@@ -125,11 +120,46 @@ h3 {
   color: white;
 }
 
-p {
+
+#leaderBoard {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.player {
+  width: 885px;
+}
+
+.player-name {
+  color: fuchsia;
+}
+
+.player-score {
+  color: fuchsia;
+}
+
+
+h5.question {
+  font-size: 20px;
+  margin: 0.25em auto;
+}
+
+p.answer {
   font-family: Raleway;
   font-size: 18px;
   color: white;
+  margin: 0.25em 0em;
 }
+
+p.answer.success { color: green; }
+p.answer.failure { color: red; }
+
+#newRound {
+  font-weight: bold;
+  margin: 1em auto;
+  text-align: center;
+}
+
 
 #results {
   background-color: #035064;
@@ -144,7 +174,7 @@ p {
 
 #timeRemaining {
   font-size: 30px;
-  color: white;
+  color: #ffc857;
   margin-bottom: 20px;
 }
 
@@ -152,13 +182,13 @@ p {
 
 #secondsRemaining {
   font-family: Raleway;
-  color: #fba945;
+  color: #ffc857;
   width: 50px !important;
 }
 
 
 
-#questionsAndAnswers { font-size: 20px; }
+#qAndA { font-size: 20px; }
 
 .question-title {
   color: white;
@@ -168,7 +198,7 @@ p {
 label {
   font-family: Raleway;
   font-size: 15px;
-  color: #fba945;
+  color: #0d7a80;
   margin-right: 20px;
 }
 
