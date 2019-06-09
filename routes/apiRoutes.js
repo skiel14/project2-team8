@@ -52,6 +52,7 @@ module.exports = function(app) {
   app.post("/api/user/:gameid/:id/:score", function(req, res) {
     db.User.find({ where: { id: req.params.id } }).then(function(User) {
       User.update({ score: req.params.score });
+      console.log(res);
     });
   });
 };

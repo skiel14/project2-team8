@@ -4,6 +4,7 @@ $("button").on("click", function() {
   var sButton = $(this).attr("data-btn");
   if (sButton === "start") {
     startRound(currentRound);
+    $("#player-wait-modal").modal("toggle");
   } else if (sButton === null) {
     console.log("not a start button!");
   }
@@ -44,7 +45,7 @@ function getQuest(round) {
       easyQuestions = response.results;
       loadQuest(currentRound);
     } else if (currentRound === 2) {
-      mediumQuestions = response.results;
+      medQuestions = response.results;
       loadQuest(currentRound);
     } else if (currentRound === 3) {
       hardQuestions = response.results;
@@ -186,7 +187,7 @@ function timer10() {
     console.log("Timer Number(10):  " + number10);
     if (number10 === 0) {
       stopTimer();
-      loadQuest(currentRound);
+      startRound(currentRound);
     }
   }
   function stopTimer() {
@@ -204,10 +205,12 @@ function timer60() {
   }
   function decrement() {
     number60--;
+    $("#secondsRemaining").html(number60);
     console.log("Timer Number(60):  " + number60);
     if (number60 === 0) {
       stopTimer();
       currentRound++;
+      timer10()
       if (currentRound === 4) {
         endGame();
       }

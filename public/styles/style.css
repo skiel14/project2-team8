@@ -208,3 +208,7 @@ label {
   color: black;
   letter-spacing: default;
 }
+
+.hidden {
+  display: none
+}

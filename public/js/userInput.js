@@ -35,7 +35,7 @@ function usersInQueue() {
       }
       $("#usersGoHere").html(newDiv);
     } else {
-      alert("Game is starting!");
+      $("#goButton").show();
       clearInterval(intervalclr);
     }
   });
