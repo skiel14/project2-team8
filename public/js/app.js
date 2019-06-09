@@ -210,7 +210,7 @@ function timer60() {
     if (number60 === 0) {
       stopTimer();
       currentRound++;
-      timer10()
+      timer10();
       if (currentRound === 4) {
         endGame();
       }
