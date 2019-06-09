@@ -1,7 +1,23 @@
 /* eslint-disable no-unused-vars */
-var easyQuestions = getQuest(1);
-var medQuestions = getQuest(2);
-var hardQuestions = getQuest(3);
+$("button").on("click", function() {
+  // Grabbing and storing the data-animal property value from the button
+  var sButton = $(this).attr("data-btn");
+  if (sButton === "start") {
+    startRound(currentRound);
+    $("#player-wait-modal").modal("toggle");
+  } else if (sButton === null) {
+    console.log("not a start button!");
+  }
+});
+
+var easyQuestions;
+var medQuestions;
+var hardQuestions;
+
+function startRound(currentRound) {
+  getQuest(currentRound);
+  timer60();
+}
 
 var currentRound = 1;
 
@@ -25,10 +41,17 @@ function getQuest(round) {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    var results = response.results;
+    if (currentRound === 1) {
+      easyQuestions = response.results;
+      loadQuest(currentRound);
+    } else if (currentRound === 2) {
+      medQuestions = response.results;
+      loadQuest(currentRound);
+    } else if (currentRound === 3) {
+      hardQuestions = response.results;
+      loadQuest(currentRound);
+    }
   });
-
-  return results;
 }
 
 function loadQuest(round) {
@@ -103,21 +126,28 @@ function loadQuest(round) {
     //diff="hard";
     hardQuestNum++;
   }
+  addClickEvent();
 }
 
 var score = 0;
-$(".answer").click(function() {
-  if (this.attr("data-answer") === "ans") {
-    score += 100 * currentRound;
-    this.removeClass("answer");
-    this.addClass("success");
-  } else {
-    score -= 100 * currentRound;
-    this.removeClass("answer");
-    this.addClass("failure");
-  }
-  timer1();
-});
+function addClickEvent() {
+  $(".answer").click(function() {
+    if ($(this).attr("data-answer") === "ans") {
+      console.log("correct!");
+      score += 100 * currentRound;
+      console.log("current score:  " + score);
+      $(this).removeClass("answer");
+      $(this).addClass("success");
+    } else {
+      console.log("incorrect!");
+      score -= 100 * currentRound;
+      console.log("current score:  " + score);
+      $(this).removeClass("answer");
+      $(this).addClass("failure");
+    }
+    timer1();
+  });
+}
 
 var intervalId1;
 var intervalId60;
@@ -134,6 +164,7 @@ function timer1() {
   }
   function decrement() {
     number1--;
+    console.log("Timer Number(1):  " + number1);
     if (number1 === 0) {
       stopTimer();
       loadQuest(currentRound);
@@ -153,9 +184,10 @@ function timer10() {
   }
   function decrement() {
     number10--;
+    console.log("Timer Number(10):  " + number10);
     if (number10 === 0) {
       stopTimer();
-      loadQuest(currentRound);
+      startRound(currentRound);
     }
   }
   function stopTimer() {
@@ -173,9 +205,12 @@ function timer60() {
   }
   function decrement() {
     number60--;
+    $("#secondsRemaining").html(number60);
+    console.log("Timer Number(60):  " + number60);
     if (number60 === 0) {
       stopTimer();
       currentRound++;
+      timer10();
       if (currentRound === 4) {
         endGame();
       }

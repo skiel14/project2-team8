@@ -203,3 +203,12 @@ label {
 }
 
 .question, label { padding: 1%; }
+
+#player-wait-modal {
+  color: black;
+  letter-spacing: default;
+}
+
+.hidden {
+  display: none
+}
