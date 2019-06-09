@@ -25,9 +25,10 @@ function getQuest(round) {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    var results = response.results;
+    console.log("here is response.results:");
+    console.log(response.results);
+    results = response.results;
   });
-
   return results;
 }
 
@@ -103,21 +104,28 @@ function loadQuest(round) {
     //diff="hard";
     hardQuestNum++;
   }
+  addClickEvent();
 }
 
 var score = 0;
-$(".answer").click(function() {
-  if (this.attr("data-answer") === "ans") {
-    score += 100 * currentRound;
-    this.removeClass("answer");
-    this.addClass("success");
-  } else {
-    score -= 100 * currentRound;
-    this.removeClass("answer");
-    this.addClass("failure");
-  }
-  timer1();
-});
+function addClickEvent() {
+  $(".answer").click(function() {
+    if ($(this).attr("data-answer") === "ans") {
+      console.log("correct!");
+      score += 100 * currentRound;
+      console.log("current score:  " + score);
+      $(this).removeClass("answer");
+      $(this).addClass("success");
+    } else {
+      console.log("incorrect!");
+      score -= 100 * currentRound;
+      console.log("current score:  " + score);
+      $(this).removeClass("answer");
+      $(this).addClass("failure");
+    }
+    timer1();
+  });
+}
 
 var intervalId1;
 var intervalId60;
