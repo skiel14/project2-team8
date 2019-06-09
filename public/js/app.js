@@ -1,7 +1,22 @@
 /* eslint-disable no-unused-vars */
-var easyQuestions = getQuest(1);
-var medQuestions = getQuest(2);
-var hardQuestions = getQuest(3);
+$("button").on("click", function() {
+  // Grabbing and storing the data-animal property value from the button
+  var sButton = $(this).attr("data-btn");
+  if (sButton === "start") {
+    startRound(currentRound);
+  } else if (sButton === null) {
+    console.log("not a start button!");
+  }
+});
+
+var easyQuestions;
+var medQuestions;
+var hardQuestions;
+
+function startRound(currentRound) {
+  getQuest(currentRound);
+  timer60();
+}
 
 var currentRound = 1;
 
@@ -25,11 +40,17 @@ function getQuest(round) {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-    console.log("here is response.results:");
-    console.log(response.results);
-    results = response.results;
+    if (currentRound === 1) {
+      easyQuestions = response.results;
+      loadQuest(currentRound);
+    } else if (currentRound === 2) {
+      mediumQuestions = response.results;
+      loadQuest(currentRound);
+    } else if (currentRound === 3) {
+      hardQuestions = response.results;
+      loadQuest(currentRound);
+    }
   });
-  return results;
 }
 
 function loadQuest(round) {
@@ -142,6 +163,7 @@ function timer1() {
   }
   function decrement() {
     number1--;
+    console.log("Timer Number(1):  " + number1);
     if (number1 === 0) {
       stopTimer();
       loadQuest(currentRound);
@@ -161,6 +183,7 @@ function timer10() {
   }
   function decrement() {
     number10--;
+    console.log("Timer Number(10):  " + number10);
     if (number10 === 0) {
       stopTimer();
       loadQuest(currentRound);
@@ -181,6 +204,7 @@ function timer60() {
   }
   function decrement() {
     number60--;
+    console.log("Timer Number(60):  " + number60);
     if (number60 === 0) {
       stopTimer();
       currentRound++;
