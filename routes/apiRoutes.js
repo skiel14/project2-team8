@@ -1,3 +1,4 @@
+var gameID;
 var db = require("../models");
 
 module.exports = function(app) {
@@ -26,11 +27,13 @@ module.exports = function(app) {
 
   // Create new user
   app.post("/api/user/create/:username", function(req, res) {
-    db.User.create({ username: req.params.username }).then(function(dbUser) {
-      res.json(dbUser);
-      db.Games.max("id").then(function(game) {
-        console.log(game);
-      });
+    db.Games.max("id").then(function(idgamenum) {
+      gameID = idgamenum;
+      db.User.create({ username: req.params.username, gameId: gameID }).then(
+        function(dbUser) {
+          res.json(dbUser);
+        }
+      );
     });
   });
 
@@ -45,7 +48,9 @@ module.exports = function(app) {
   app.post("/api/game/start", function(req, res) {
     db.User.findAll({ where: { pair: false } }).then(function(User) {
       User.forEach(function(User) {
-        User.update({ pair: true });
+        User.update({ pair: true }).then(function() {
+          db.Games.create({});
+        });
       });
       res.json(User);
     });
@@ -59,21 +64,19 @@ module.exports = function(app) {
     });
   });
 
-  //Sequelize test
-  app.post("/api/seq/test", function(req, res) {
-    db.User.create({
-      username: "TestUserNOTATION22",
-      Game: { id: 1 },
-      include: db.Games
-    }).then(function(user) {
-      res.json(user);
+  //Pull all scores
+  app.post("/api/game/score/:gameid", function(req, res) {
+    db.User.findAll({ where: { gameId: req.params.gameid } }).then(function(
+      scores
+    ) {
+      res.json(scores);
     });
   });
 
-  //Sequelize test 2
-  app.post("/api/seq/test2", function(req, res) {
-    db.User.findById(1).then(function(user) {
-      user.setGame(1);
+  //Sequelize test
+  app.post("/api/seq/test", function(req, res) {
+    db.Games.create({}).then(function(user) {
+      res.json(user);
     });
   });
 };
