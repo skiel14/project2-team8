@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 $("button").on("click", function() {
-  // Grabbing and storing the data-animal property value from the button
   var sButton = $(this).attr("data-btn");
   if (sButton === "start") {
     startRound(currentRound);
@@ -135,16 +134,52 @@ function addClickEvent() {
     if ($(this).attr("data-answer") === "ans") {
       console.log("correct!");
       score += 100 * currentRound;
+      var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
+      $.post(postReq, function(data) {
+        console.log(postReq);
+        console.log(data);
+      });
       console.log("current score:  " + score);
       $(this).removeClass("answer");
       $(this).addClass("success");
     } else {
       console.log("incorrect!");
+      console.log("myuseridis:  " + myUserID);
       score -= 100 * currentRound;
       console.log("current score:  " + score);
+      var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
+      $.post(postReq, function(data) {
+        console.log(postReq);
+        console.log(data);
+      });
       $(this).removeClass("answer");
       $(this).addClass("failure");
     }
+    var postReq2 = "/api/game/score/" + myGameID;
+    $.post(postReq2, function(data) {
+      var newTable = $("<table>");
+      var newRow = $("<tr>");
+      var userHead = $("<th>").text("Username");
+      var scoreHead = $("<th>").text("Score");
+
+      userHead.appendTo(newRow);
+      scoreHead.appendTo(newRow);
+      newRow.appendTo(newTable);
+      $("#leaderBoard").html(newTable);
+      console.log("HERE IS YOUR DATA IN LOOP!");
+      console.log(data[i]);
+      for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
+        var newRow2 = $("<tr>");
+        var uname = $("<td>").text(data[i].username);
+        var uscore = $("<td>").text(data[i].score);
+        uname.appendTo(newRow2);
+        uscore.appendTo(newRow2);
+        newRow2.appendTo(newTable);
+      }
+      $("#leaderBoard").html(newTable);
+    });
     timer1();
   });
 }

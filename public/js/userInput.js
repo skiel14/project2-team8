@@ -11,7 +11,7 @@ $("#startButton").click(function(event) {
   console.log(postReq);
   $("#player-wait-modal").modal({ backdrop: "static", keyboard: false });
   $.post(postReq, function(data) {
-    console.log(data);
+    myGameID = data.gameId;
     myUserID = data.id;
     intervalclr = setInterval(usersInQueue, 3000);
   });

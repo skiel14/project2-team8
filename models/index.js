@@ -42,7 +42,6 @@ db.Sequelize = Sequelize;
 db.Users = require("../models/users")(sequelize, Sequelize)
 db.Games = require("../models/activeGames")(sequelize, Sequelize)
 
-db.Users.belongsTo(db.Games);
-db.Games.hasMany(db.Users)
+db.Users.hasOne(db.Games);
 
 module.exports = db;
