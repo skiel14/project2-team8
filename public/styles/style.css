@@ -213,8 +213,8 @@ h3 {
 .question { padding: 1%; }
 
 #player-wait-modal {
-  display: block;
-  opacity: 1;
+  /* display: block;
+  opacity: 1; */
   top: 50px;
 }
 
