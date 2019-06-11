@@ -1,10 +1,6 @@
+
 <div id="gameBoard">
   <h2>Totally Tubular Trivia!</h2>
-  <div id="timeRemaining">
-    <div>Time Remaining: </div>
-    <div id="secondsRemaining">30</div>
-    <div> Seconds</div>    
-  </div>
 
   <form id="form1">
     <button type="button" id="playerNameButton">Player: </button>
@@ -12,43 +8,71 @@
     <button type="button" class="ctbtn" id="startButton">Join Game</button>
   </form>
 
-  <div class="col-md-1" id="leaderBoard">
-    <div id"player1" class="player">
-      <span id="player1-name" class="player-name">Luke Skywalker</span>
-      <span id="player1-score" class="player-score">5000</span>
+  <div id="leaderBoard">
+
+    <div class="row" id="leaderBoardHeader">
+      <span class="col-md-6">Player</span>
+      <span class="col-md-6">Current Score</span>
     </div>
-    <div id"player2" class="player">
-      <span id="player1-name" class="player-name">Luke Skywalker</span>
-      <span id="player1-score" class="player-score">5000</span>
+
+    <div class="row player" id="player1">
+      <span class="col-md-6 player-name" id="player1-name">Luke Skywalker</span>
+      <span class="col-md-6 player-score" id="player1-score">5000</span>
     </div>
-    <div id"player3" class="player">
-      <span id="player1-name" class="player-name">Luke Skywalker</span>
-      <span id="player1-score" class="player-score">5000</span>
+
+    <div class="row player" id="player2">
+      <span class="col-md-6 player-name" id="player2-name">Luke Skywalker</span>
+      <span class="col-md-6 player-score" id="player2-score">5000</span>
     </div>
-    <div id"player4" class="player">
-      <span id="player1-name" class="player-name">Luke Skywalker</span>
-      <span id="player1-score" class="player-score">5000</span>
+
+    <div class="row player" id="player3">
+      <span class="col-md-6 player-name" id="player3-name">Luke Skywalker</span>
+      <span class="col-md-6 player-score" id="player3-score">5000</span>
     </div>
+
+    <div class="row player" id="player4">
+      <span class="col-md-6 player-name" id="player4-name">Luke Skywalker</span>
+      <span class="col-md-6 player-score" id="player4-score">5000</span>
+    </div>
+
+  </div>  <!--  leaderBoard  -->
+
+
+  <div id="timeRemaining">
+    <div>Time Remaining: </div>
+    <div id="secondsRemaining">30</div>
+    <div> Seconds</div>    
   </div>
 
-  <div id="qAndA" class="TBD">
 
-    <div class="row" id="qDiv"><h5 class="question">What African country served as the setting for Tatooine in <em>Star Wars?</em></h5></div>
+  <div id="qAndA">
 
-    <div class="row" id="ansDiv">
-      <div class="col-md-1">
-        <p class="answer">Morocco</p>
-        <p class="answer">Egypt</p>
-        <p class="answer">Tunisia</p>
-        <p class="answer">Ethiopia</p>
+      <div class="row" id="qAndAHeader">
+        <div class="col-md-12"><h5 class="question">What African country served as the setting for Tatooine in <em>Star Wars?</em></h5></div>
       </div>
-    </div>
 
-    <div class="row" id="newRound">
-      <div class-"col-md-1">*****  NEW ROUND  *****</div>
-    </div>
+      <div class="row">
+        <div class="col-md-12"><p class="answer">1. Egypt</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"><p class="answer">2. Morocco</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"><p class="answer">3. Tunisia</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12"><p class="answer">4. Western Saraha</div>
+      </div>
 
   </div>  <!--  qAndA  -->
+
+  <div class="row" id="newRound">
+    <div class-"col-md-1">*****  NEW ROUND!  *****</div>
+  </div>
+
 </div>  <!--  gameBoard  -->
 
 
@@ -60,20 +84,21 @@
   <button type="button" id="playAgainButton">Play Again</button>
 </div>
 
-<div id="player-wait-modal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="player-wait-modal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Please Wait</h5>
+        <h2 class="modal-title" id="exampleModalLabel">Please Wait</h2>
           <span aria-hidden="true"></span>
       </div>
-      <div id="modal-body" class="modal-body">Waiting for Opponents...
+      <div id="modal-body" class="modal-body">
+        <h3>Waiting for Opponents...</h3>
         <h4>Current Users in Queue: </h4>
-        <div id="usersGoHere"></div>
+        <div id="usersGoHere">Sarah</div>
         <button type="button" data-btn="start" class="ctbtn hidden" id="goButton">Go!</button>
       </div>
       <div id="user-list"></div>
-      <div class="modal-footer"></div>
+      <div class="modal-footer">Footer if there is one ...</div>
     </div>
   </div>
 </div>
