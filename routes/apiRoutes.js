@@ -28,6 +28,9 @@ module.exports = function(app) {
   app.post("/api/user/create/:username", function(req, res) {
     db.User.create({ username: req.params.username }).then(function(dbUser) {
       res.json(dbUser);
+      db.Games.max("id").then(function(game) {
+        console.log(game);
+      });
     });
   });
 
@@ -50,9 +53,27 @@ module.exports = function(app) {
 
   //Update Scores
   app.post("/api/user/:gameid/:id/:score", function(req, res) {
-    db.User.find({ where: { id: req.params.id } }).then(function(User) {
+    db.User.findOne({ where: { id: req.params.id } }).then(function(User) {
       User.update({ score: req.params.score });
-      console.log(res);
+      res.json(User);
+    });
+  });
+
+  //Sequelize test
+  app.post("/api/seq/test", function(req, res) {
+    db.User.create({
+      username: "TestUserNOTATION22",
+      Game: { id: 1 },
+      include: db.Games
+    }).then(function(user) {
+      res.json(user);
+    });
+  });
+
+  //Sequelize test 2
+  app.post("/api/seq/test2", function(req, res) {
+    db.User.findById(1).then(function(user) {
+      user.setGame(1);
     });
   });
 };
