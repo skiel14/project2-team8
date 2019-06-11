@@ -166,7 +166,7 @@ function addClickEvent() {
       scoreHead.appendTo(newRow);
       newRow.appendTo(newTable);
       $("#leaderBoard").html(newTable);
-      console.log("HERE IS YOUR DATA IN LOOP!")
+      console.log("HERE IS YOUR DATA IN LOOP!");
       console.log(data[i]);
       for (i = 0; i < data.length; i++) {
         console.log("HERE IS YOUR DATA IN LOOP!");
