@@ -9,9 +9,7 @@ $("button").on("click", function() {
   }
 });
 
-var easyQuestions;
-var medQuestions;
-var hardQuestions;
+var questions;
 
 function startRound(currentRound) {
   getQuest(currentRound);
@@ -24,17 +22,18 @@ var easyQuestNum = 0,
   medQuestNum = 0,
   hardQuestNum = 0;
 
-function getQuest(round) {
-  var diff;
-  if (round === 1) {
-    diff = "easy";
-  } else if (round === 2) {
-    diff = "medium";
-  } else if (round === 3) {
-    diff = "hard";
-  }
+function getQuest() {
+  // var diff;
+  // if (round === 1) {
+  //   diff = "easy";
+  // } else if (round === 2) {
+  //   diff = "medium";
+  // } else if (round === 3) {
+  //   diff = "hard";
+  // }
 
-  var queryURL = "https://opentdb.com/api.php?amount=50&difficulty=" + diff;
+  var queryURL =
+    "https://storage.googleapis.com/kaggle-datasets/25397/32360/DB.json?GoogleAccessId=web-data@kaggle-161607.iam.gserviceaccount.com&Expires=1560556095&Signature=UnBT838gqeYo4q6knGuz6dh8GkgBmgIkGBWfDZD1yzfmevexpaSgLwszY4JIyJB5VIRtFSJnxXI%2FhoUmyxG9K6y%2BPnQ9WySrVxtlPRqWQug3kHvSip6VDJ5bam3XOssTbmtCZ6%2BO15yQC6Hjx7JLRm5ZhGnkPV9EMb%2FUhPNpqcgZwKb3ZO0mxQiruDCzoZe85AubXFLV1rbYC9iUyE%2F0EMYRivy9XRFV378ZwvRhqLoFbG2a0av%2FxJI8gwT8pnJDbuEx45a3z0XJiRPM%2By95kp7Vs17U0xy75FXqE8dcQxMdxT9nxYEC0ONF0PdfZn%2FLMZdLLVhyg7db73fqmwRvBA%3D%3D";
 
   $.ajax({
     url: queryURL,
@@ -89,6 +88,8 @@ function loadQuest(round) {
       answers.splice(index, 1);
     }
     for (var i = 0; i < 4; i++) {
+      var outer = $("<div>").addClass("row");
+      var inner = $("<div>").addClass("col-md-12");
       var ans = $("<p>").text(shuffled[i]);
       ans.addClass("answer");
       if (shuffled[i] === data[counter].correct_answer) {
@@ -96,10 +97,14 @@ function loadQuest(round) {
       } else {
         ans.attr("data-answer", "");
       }
-      $("#ansDiv").append(ans);
+      inner.append(ans);
+      outer.append(inner);
+      $("#ansDiv").append(outer);
     }
   } else if (data[counter].type === "boolean") {
     $("#ansDiv").empty();
+    var outer = $("<div>").addClass("row");
+    var inner = $("<div>").addClass("col-md-12");
     var t = $("<p>").text("True");
     var f = $("<p>").text("False");
     t.addClass("answer");
@@ -111,8 +116,10 @@ function loadQuest(round) {
       f.attr("data-answer", "ans");
       t.attr("data-answer", "");
     }
-    $("#ansDiv").append(t);
-    $("#ansDiv").append(f);
+    inner.append(t);
+    inner.append(f);
+    outer.append(inner);
+    $("#ansDiv").append(outer);
   }
 
   if (round === 1) {
