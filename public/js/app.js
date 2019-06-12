@@ -9,6 +9,13 @@ $("button").on("click", function() {
   }
 });
 
+$("div").on("click", function() {
+  console.log($(this));
+  if ($(this).attr("class") === "answer") {
+    console.log("Here is an answer box!");
+  }
+});
+
 var easyQuestions;
 var medQuestions;
 var hardQuestions;
@@ -125,11 +132,11 @@ function loadQuest(round) {
     //diff="hard";
     hardQuestNum++;
   }
-  addClickEvent();
+  //addClickEvent();
 }
 
 var score = 0;
-function addClickEvent() {
+//function addClickEvent() {
   $(".answer").click(function() {
     if ($(this).attr("data-answer") === "ans") {
       console.log("correct!");
@@ -166,8 +173,6 @@ function addClickEvent() {
       scoreHead.appendTo(newRow);
       newRow.appendTo(newTable);
       $("#leaderBoard").html(newTable);
-      console.log("HERE IS YOUR DATA IN LOOP!");
-      console.log(data[i]);
       for (i = 0; i < data.length; i++) {
         console.log("HERE IS YOUR DATA IN LOOP!");
         console.log(data[i]);
@@ -182,7 +187,7 @@ function addClickEvent() {
     });
     timer1();
   });
-}
+//}
 
 var intervalId1;
 var intervalId60;
@@ -199,7 +204,6 @@ function timer1() {
   }
   function decrement() {
     number1--;
-    console.log("Timer Number(1):  " + number1);
     if (number1 === 0) {
       stopTimer();
       loadQuest(currentRound);
@@ -219,7 +223,6 @@ function timer10() {
   }
   function decrement() {
     number10--;
-    console.log("Timer Number(10):  " + number10);
     if (number10 === 0) {
       stopTimer();
       startRound(currentRound);
@@ -241,7 +244,6 @@ function timer60() {
   function decrement() {
     number60--;
     $("#secondsRemaining").html(number60);
-    console.log("Timer Number(60):  " + number60);
     if (number60 === 0) {
       stopTimer();
       currentRound++;
