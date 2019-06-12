@@ -126,6 +126,7 @@ input[type=text]:focus, select {
 
 .player {
   border: 1px solid #119da4;
+  background-color: white;
   border-radius: 5px;
   font-family: Raleway;
   font-weight: bold;
