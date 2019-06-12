@@ -9,6 +9,13 @@ $("button").on("click", function() {
   }
 });
 
+$("div").on("click", function() {
+  console.log($(this));
+  if ($(this).attr("class") === "answer") {
+    console.log("Here is an answer box!");
+  }
+});
+
 var easyQuestions;
 var medQuestions;
 var hardQuestions;
@@ -125,64 +132,62 @@ function loadQuest(round) {
     //diff="hard";
     hardQuestNum++;
   }
-  addClickEvent();
+  //addClickEvent();
 }
 
 var score = 0;
-function addClickEvent() {
-  $(".answer").click(function() {
-    if ($(this).attr("data-answer") === "ans") {
-      console.log("correct!");
-      score += 100 * currentRound;
-      var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
-      $.post(postReq, function(data) {
-        console.log(postReq);
-        console.log(data);
-      });
-      console.log("current score:  " + score);
-      $(this).removeClass("answer");
-      $(this).addClass("success");
-    } else {
-      console.log("incorrect!");
-      console.log("myuseridis:  " + myUserID);
-      score -= 100 * currentRound;
-      console.log("current score:  " + score);
-      var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
-      $.post(postReq, function(data) {
-        console.log(postReq);
-        console.log(data);
-      });
-      $(this).removeClass("answer");
-      $(this).addClass("failure");
-    }
-    var postReq2 = "/api/game/score/" + myGameID;
-    $.post(postReq2, function(data) {
-      var newTable = $("<table>");
-      var newRow = $("<tr>");
-      var userHead = $("<th>").text("Username");
-      var scoreHead = $("<th>").text("Score");
+//function addClickEvent() {
+$(".answer").click(function() {
+  if ($(this).attr("data-answer") === "ans") {
+    console.log("correct!");
+    score += 100 * currentRound;
+    var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
+    $.post(postReq, function(data) {
+      console.log(postReq);
+      console.log(data);
+    });
+    console.log("current score:  " + score);
+    $(this).removeClass("answer");
+    $(this).addClass("success");
+  } else {
+    console.log("incorrect!");
+    console.log("myuseridis:  " + myUserID);
+    score -= 100 * currentRound;
+    console.log("current score:  " + score);
+    var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
+    $.post(postReq, function(data) {
+      console.log(postReq);
+      console.log(data);
+    });
+    $(this).removeClass("answer");
+    $(this).addClass("failure");
+  }
+  var postReq2 = "/api/game/score/" + myGameID;
+  $.post(postReq2, function(data) {
+    var newTable = $("<table>");
+    var newRow = $("<tr>");
+    var userHead = $("<th>").text("Username");
+    var scoreHead = $("<th>").text("Score");
 
-      userHead.appendTo(newRow);
-      scoreHead.appendTo(newRow);
-      newRow.appendTo(newTable);
-      $("#leaderBoard").html(newTable);
+    userHead.appendTo(newRow);
+    scoreHead.appendTo(newRow);
+    newRow.appendTo(newTable);
+    $("#leaderBoard").html(newTable);
+    for (i = 0; i < data.length; i++) {
       console.log("HERE IS YOUR DATA IN LOOP!");
       console.log(data[i]);
-      for (i = 0; i < data.length; i++) {
-        console.log("HERE IS YOUR DATA IN LOOP!");
-        console.log(data[i]);
-        var newRow2 = $("<tr>");
-        var uname = $("<td>").text(data[i].username);
-        var uscore = $("<td>").text(data[i].score);
-        uname.appendTo(newRow2);
-        uscore.appendTo(newRow2);
-        newRow2.appendTo(newTable);
-      }
-      $("#leaderBoard").html(newTable);
-    });
-    timer1();
+      var newRow2 = $("<tr>");
+      var uname = $("<td>").text(data[i].username);
+      var uscore = $("<td>").text(data[i].score);
+      uname.appendTo(newRow2);
+      uscore.appendTo(newRow2);
+      newRow2.appendTo(newTable);
+    }
+    $("#leaderBoard").html(newTable);
   });
-}
+  timer1();
+});
+//}
 
 var intervalId1;
 var intervalId60;
@@ -199,7 +204,6 @@ function timer1() {
   }
   function decrement() {
     number1--;
-    console.log("Timer Number(1):  " + number1);
     if (number1 === 0) {
       stopTimer();
       loadQuest(currentRound);
@@ -219,7 +223,6 @@ function timer10() {
   }
   function decrement() {
     number10--;
-    console.log("Timer Number(10):  " + number10);
     if (number10 === 0) {
       stopTimer();
       startRound(currentRound);
@@ -241,7 +244,6 @@ function timer60() {
   function decrement() {
     number60--;
     $("#secondsRemaining").html(number60);
-    console.log("Timer Number(60):  " + number60);
     if (number60 === 0) {
       stopTimer();
       currentRound++;
