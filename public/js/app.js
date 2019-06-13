@@ -23,19 +23,28 @@ $("button").on("click", function() {
   if (sButton === "start") {
     startRound(currentRound);
     $("#player-wait-modal").modal("toggle");
+  } else if (sButton === null) {
+    console.log("not a start button!");
   }
 });
 $("#qAndA").on("click", ".ansa", function() {
   shakeThis(this);
+  console.log("correct!");
+  console.log("THERE IS THIS!!!");
+  console.log($(this).attr("class"));
   score += 100 * currentRound;
   var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
   $.post(postReq, function(data) {
+    console.log(postReq);
+    console.log(data);
     var postReq2 = "/api/game/score/" + myGameID;
     var newDiv = $("<div>");
 
     $.post(postReq2, function(data) {
       //$("#leaderBoard").html(newTable);
       for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
         var newRow2 = $("<div>").attr("class", "row player");
         var uname = $("<span>").text(data[i].username);
         uname.attr("class", "col-md-6 player-name");
@@ -48,6 +57,7 @@ $("#qAndA").on("click", ".ansa", function() {
       $("#appendScoresHere").html(newDiv);
     });
   });
+  console.log("current score:  " + score);
   $(this).removeAttr("data-answer");
   $(this).removeClass("answer");
   $(this).addClass("success");
@@ -58,15 +68,24 @@ $("#qAndA").on("click", ".ansa", function() {
 
 $("#qAndA").on("click", ".fa", function() {
   shakeThis(this);
+  console.log("incorrect!");
+  console.log("myuseridis:  " + myUserID);
+  console.log("THERE IS THIS!!!");
+  console.log($(this).attr("class"));
   score -= 100 * 0.25 * currentRound;
+  console.log("current score:  " + score);
   var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
   $.post(postReq, function(data) {
+    console.log(postReq);
+    console.log(data);
     var postReq2 = "/api/game/score/" + myGameID;
     var newDiv = $("<div>");
 
     $.post(postReq2, function(data) {
       //$("#leaderBoard").html(newTable);
       for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
         var newRow2 = $("<div>").attr("class", "row player");
         var uname = $("<span>").text(data[i].username);
         uname.attr("class", "col-md-6 player-name");
@@ -314,6 +333,8 @@ function endGame() {
     $.post(postReq2, function(data) {
       //$("#leaderBoard").html(newTable);
       for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
         var newRow2 = $("<div>").attr("class", "row player");
         var uname = $("<span>").text(data[i].username);
         uname.attr("class", "col-md-6 player-name");

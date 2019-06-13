@@ -8,6 +8,7 @@ $("#startButton").click(function(event) {
     $("#playerNameText")
       .val()
       .trim();
+  console.log(postReq);
   $("#player-wait-modal").modal({ backdrop: "static", keyboard: false });
   $.post(postReq, function(data) {
     myGameID = data.gameId;
@@ -20,11 +21,13 @@ function usersInQueue() {
   postReq = "/api/user/queue";
   var newDiv = $("<div>");
   $.post(postReq, function(data) {
+    console.log(data);
     if (
       data.filter(function(e) {
         return e.id === myUserID;
       }).length > 0
     ) {
+      console.log("loop continues");
       for (i = 0; i < data.length; i++) {
         var userList = $("<h6>");
         var newHead = userList.text(data[i].username);
@@ -40,9 +43,8 @@ function usersInQueue() {
 
 function startGame() {
   postReq = "/api/game/start";
-  // eslint-disable-next-line no-unused-vars
   $.post(postReq, function(data) {
-    //console.log(data);
+    console.log(data);
   });
 }
 
