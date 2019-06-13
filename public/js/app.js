@@ -15,82 +15,82 @@ $("button").on("click", function() {
   }
 });
 $("#qAndA").on("click", ".ansa", function() {
-      console.log("correct!");
-      console.log("THERE IS THIS!!!")
-      console.log($(this).attr("class"))
-      score += 100 * currentRound;
-      var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
-      $.post(postReq, function(data) {
-        console.log(postReq);
-        console.log(data);
-        var postReq2 = "/api/game/score/" + myGameID;
-        var newDiv = $("<div>");
-      
-        $.post(postReq2, function(data) {
-          //$("#leaderBoard").html(newTable);
-          for (i = 0; i < data.length; i++) {
-            console.log("HERE IS YOUR DATA IN LOOP!");
-            console.log(data[i]);
-            var newRow2 = $("<div>").attr("class", "row player");
-            var uname = $("<span>").text(data[i].username);
-            uname.attr("class", "col-md-6 player-name");
-            var uscore = $("<span>").text(data[i].score);
-            uscore.attr("class", "col-md-6 player-score");
-            uname.appendTo(newRow2);
-            uscore.appendTo(newRow2);
-            newRow2.appendTo(newDiv);
-          }
-          $("#appendScoresHere").html(newDiv);
-        });
-      });
-      console.log("current score:  " + score);
-      $(this).removeAttr("data-answer");
-      $(this).removeClass("answer");
-      $(this).addClass("success");
-      $(this).removeClass("ansa");
+  console.log("correct!");
+  console.log("THERE IS THIS!!!");
+  console.log($(this).attr("class"));
+  score += 100 * currentRound;
+  var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
+  $.post(postReq, function(data) {
+    console.log(postReq);
+    console.log(data);
+    var postReq2 = "/api/game/score/" + myGameID;
+    var newDiv = $("<div>");
 
-    timer1();
-}) 
-      
+    $.post(postReq2, function(data) {
+      //$("#leaderBoard").html(newTable);
+      for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
+        var newRow2 = $("<div>").attr("class", "row player");
+        var uname = $("<span>").text(data[i].username);
+        uname.attr("class", "col-md-6 player-name");
+        var uscore = $("<span>").text(data[i].score);
+        uscore.attr("class", "col-md-6 player-score");
+        uname.appendTo(newRow2);
+        uscore.appendTo(newRow2);
+        newRow2.appendTo(newDiv);
+      }
+      $("#appendScoresHere").html(newDiv);
+    });
+  });
+  console.log("current score:  " + score);
+  $(this).removeAttr("data-answer");
+  $(this).removeClass("answer");
+  $(this).addClass("success");
+  $(this).removeClass("ansa");
+
+  timer1();
+});
+
 $("#qAndA").on("click", ".fa", function() {
   console.log("incorrect!");
   console.log("myuseridis:  " + myUserID);
-  console.log("THERE IS THIS!!!")
-  console.log($(this).attr("class"))
+  console.log("THERE IS THIS!!!");
+  console.log($(this).attr("class"));
   score -= 100 * 0.25 * currentRound;
   console.log("current score:  " + score);
   var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
-      $.post(postReq, function(data) {
-        console.log(postReq);
-        console.log(data);
-        var postReq2 = "/api/game/score/" + myGameID;
-        var newDiv = $("<div>");
-      
-        $.post(postReq2, function(data) {
-          //$("#leaderBoard").html(newTable);
-          for (i = 0; i < data.length; i++) {
-            console.log("HERE IS YOUR DATA IN LOOP!");
-            console.log(data[i]);
-            var newRow2 = $("<div>").attr("class", "row player");
-            var uname = $("<span>").text(data[i].username);
-            uname.attr("class", "col-md-6 player-name");
-            var uscore = $("<span>").text(data[i].score);
-            uscore.attr("class", "col-md-6 player-score");
-            uname.appendTo(newRow2);
-            uscore.appendTo(newRow2);
-            newRow2.appendTo(newDiv);
-          }
-          $("#appendScoresHere").html(newDiv);
-        });
-      });
-      $(this).removeAttr("data-answer");
-      $(this).removeClass("answer");
-      $(this).addClass("failure");
-      $(this).removeClass("fa");
+  $.post(postReq, function(data) {
+    console.log(postReq);
+    console.log(data);
+    var postReq2 = "/api/game/score/" + myGameID;
+    var newDiv = $("<div>");
 
-    timer1();
-})
-    
+    $.post(postReq2, function(data) {
+      //$("#leaderBoard").html(newTable);
+      for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
+        var newRow2 = $("<div>").attr("class", "row player");
+        var uname = $("<span>").text(data[i].username);
+        uname.attr("class", "col-md-6 player-name");
+        var uscore = $("<span>").text(data[i].score);
+        uscore.attr("class", "col-md-6 player-score");
+        uname.appendTo(newRow2);
+        uscore.appendTo(newRow2);
+        newRow2.appendTo(newDiv);
+      }
+      $("#appendScoresHere").html(newDiv);
+    });
+  });
+  $(this).removeAttr("data-answer");
+  $(this).removeClass("answer");
+  $(this).addClass("failure");
+  $(this).removeClass("fa");
+
+  timer1();
+});
+
 var easyQuestions;
 var medQuestions;
 var hardQuestions;
@@ -306,11 +306,11 @@ function endGame() {
   $("#qDiv").hide();
   $("#ansDiv").hide();
   $("#newRound").text("Calculating Results...");
-  setTimeout(function(){
+  setTimeout(function() {
     clearInterval(intervalId10);
     clearInterval(intervalId1);
     clearInterval(intervalId60);
-    $("#exampleModalLabel").text("Final Results!")
+    $("#exampleModalLabel").text("Final Results!");
     var postReq2 = "/api/game/score/" + myGameID;
     var newDiv = $("<div>");
     $.post(postReq2, function(data) {
@@ -330,7 +330,7 @@ function endGame() {
       $("#modal-body").html(newDiv);
     });
     $("#player-wait-modal").modal("toggle");
- }, 8000)
+  }, 8000);
 }
 
 // var questions = [
