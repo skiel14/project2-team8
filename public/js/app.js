@@ -362,7 +362,7 @@ function openAnimation() {
   anime
     .timeline({ loop: false })
     .add({
-      targets: ".ml15 .word",
+      targets: ".string .word",
       scale: [14, 1],
       opacity: [0, 1],
       easing: "easeOutCirc",
@@ -372,7 +372,7 @@ function openAnimation() {
       }
     })
     .add({
-      targets: ".ml15",
+      targets: ".string",
       opacity: 0,
       duration: 1000,
       easing: "easeOutExpo",
@@ -399,7 +399,9 @@ function timer5() {
   }
   function stopTimer() {
     clearInterval(intervalId5);
+    $("#openAnime").fadeOut();
     $("#gameBoard").fadeIn();
   }
   runTimer();
 }
+timer5();
