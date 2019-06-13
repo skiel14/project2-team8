@@ -317,7 +317,7 @@ function newRound(round) {
   $("#newRound").empty();
   $("#newRound").append(title);
   $("#newRound").show();
-  roundAnimation()
+  roundAnimation();
 }
 
 function endGame() {
