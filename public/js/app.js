@@ -312,10 +312,12 @@ function timer60() {
 function newRound(round) {
   $("#timeRemaining").hide();
   $("#qAndA").hide();
-  var title = $("<h3>").text("Round " + round + "!");
+  var title = $("<h1>").text("Round " + round + "!");
+  title.addClass("newRound");
   $("#newRound").empty();
   $("#newRound").append(title);
   $("#newRound").show();
+  roundAnimation()
 }
 
 function endGame() {
@@ -405,3 +407,14 @@ function timer5() {
   runTimer();
 }
 timer5();
+
+function roundAnimation() {
+  anime({
+    targets: ".newRound",
+    rotate: {
+      value: 360,
+      duration: 1800,
+      easing: "easeInOutSine"
+    }
+  });
+}
