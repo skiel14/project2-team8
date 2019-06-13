@@ -59,9 +59,9 @@ body {
 
 .newRound {
   font-weight: 800;
-  font-size: 4em;
+  font-size: 3em;
   text-transform: uppercase;
-  letter-spacing: 0.5em;
+  letter-spacing: 0.2em;
   display: inline-block;
 }
 
