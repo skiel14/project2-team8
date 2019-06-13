@@ -54,7 +54,7 @@ h5.question {
   padding: 10px 15px;
 }
 
-p.answer {
+p.answer-style {
   background-color: #119da4;
   border: 1px solid white;
   border-radius: 5px;
@@ -65,10 +65,6 @@ p.answer {
   padding: 5px 10px;
   width: 95%;
 }
-
-p.answer.success { color: green; }
-p.answer.failure { color: red; }
-
 
 button {
   background-color: #ffc857;
@@ -273,3 +269,6 @@ p.user-line {
 .hidden {
   display: none
 }
+
+p.success { color: green; }
+p.failure { color: red; }

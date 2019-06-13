@@ -1,4 +1,10 @@
 /* eslint-disable no-unused-vars */
+function decodeHtml(html) {
+  var txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
+}
+
 $("button").on("click", function() {
   var sButton = $(this).attr("data-btn");
   if (sButton === "start") {
@@ -8,55 +14,83 @@ $("button").on("click", function() {
     console.log("not a start button!");
   }
 });
-
-$("div").on("click", function() {
-  if ($(this).attr("id") === "ansDiv") {
-    if ($(this).attr("data-answer") === "ans") {
+$("#qAndA").on("click", ".ansa", function() {
       console.log("correct!");
+      console.log("THERE IS THIS!!!")
+      console.log($(this).attr("class"))
       score += 100 * currentRound;
       var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
       $.post(postReq, function(data) {
         console.log(postReq);
         console.log(data);
+        var postReq2 = "/api/game/score/" + myGameID;
+        var newDiv = $("<div>");
+      
+        $.post(postReq2, function(data) {
+          //$("#leaderBoard").html(newTable);
+          for (i = 0; i < data.length; i++) {
+            console.log("HERE IS YOUR DATA IN LOOP!");
+            console.log(data[i]);
+            var newRow2 = $("<div>").attr("class", "row player");
+            var uname = $("<span>").text(data[i].username);
+            uname.attr("class", "col-md-6 player-name");
+            var uscore = $("<span>").text(data[i].score);
+            uscore.attr("class", "col-md-6 player-score");
+            uname.appendTo(newRow2);
+            uscore.appendTo(newRow2);
+            newRow2.appendTo(newDiv);
+          }
+          $("#appendScoresHere").html(newDiv);
+        });
       });
       console.log("current score:  " + score);
+      $(this).removeAttr("data-answer");
       $(this).removeClass("answer");
       $(this).addClass("success");
-    } else {
-      console.log("incorrect!");
-      console.log("myuseridis:  " + myUserID);
-      score -= 100 * currentRound;
-      console.log("current score:  " + score);
-      var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
+      $(this).removeClass("ansa");
+
+    timer1();
+}) 
+      
+$("#qAndA").on("click", ".fa", function() {
+  console.log("incorrect!");
+  console.log("myuseridis:  " + myUserID);
+  console.log("THERE IS THIS!!!")
+  console.log($(this).attr("class"))
+  score -= 100 * 0.25 * currentRound;
+  console.log("current score:  " + score);
+  var postReq = "/api/user/gameid/" + myUserID + "/" + score + "/";
       $.post(postReq, function(data) {
         console.log(postReq);
         console.log(data);
+        var postReq2 = "/api/game/score/" + myGameID;
+        var newDiv = $("<div>");
+      
+        $.post(postReq2, function(data) {
+          //$("#leaderBoard").html(newTable);
+          for (i = 0; i < data.length; i++) {
+            console.log("HERE IS YOUR DATA IN LOOP!");
+            console.log(data[i]);
+            var newRow2 = $("<div>").attr("class", "row player");
+            var uname = $("<span>").text(data[i].username);
+            uname.attr("class", "col-md-6 player-name");
+            var uscore = $("<span>").text(data[i].score);
+            uscore.attr("class", "col-md-6 player-score");
+            uname.appendTo(newRow2);
+            uscore.appendTo(newRow2);
+            newRow2.appendTo(newDiv);
+          }
+          $("#appendScoresHere").html(newDiv);
+        });
       });
+      $(this).removeAttr("data-answer");
       $(this).removeClass("answer");
       $(this).addClass("failure");
-    }
-    var postReq2 = "/api/game/score/" + myGameID;
-    var newDiv = $("<div>");
-    $.post(postReq2, function(data) {
-      //$("#leaderBoard").html(newTable);
-      for (i = 0; i < data.length; i++) {
-        console.log("HERE IS YOUR DATA IN LOOP!");
-        console.log(data[i]);
-        var newRow2 = $("<div>").attr("class", "row player");
-        var uname = $("<span>").text(data[i].username);
-        uname.attr("class", "col-md-6 player-name");
-        var uscore = $("<span>").text(data[i].score);
-        uscore.attr("class", "col-md-6 player-score");
-        uname.appendTo(newRow2);
-        uscore.appendTo(newRow2);
-        newRow2.appendTo(newDiv);
-      }
-      $("#appendScoresHere").html(newDiv);
-    });
-    timer1();
-  }
-});
+      $(this).removeClass("fa");
 
+    timer1();
+})
+    
 var easyQuestions;
 var medQuestions;
 var hardQuestions;
@@ -117,7 +151,7 @@ function loadQuest(round) {
     counter = hardQuestNum;
   }
 
-  var quest = data[counter].question;
+  var quest = decodeHtml(data[counter].question);
   var q = $("<h3>").text(quest);
   q.addClass("question");
   $("#qDiv").empty();
@@ -125,10 +159,10 @@ function loadQuest(round) {
   $("#ansDiv").empty();
   if (data[counter].type === "multiple") {
     var answers = [
-      data[counter].incorrect_answers[0],
-      data[counter].incorrect_answers[1],
-      data[counter].incorrect_answers[2],
-      data[counter].correct_answer
+      decodeHtml(data[counter].incorrect_answers[0]),
+      decodeHtml(data[counter].incorrect_answers[1]),
+      decodeHtml(data[counter].incorrect_answers[2]),
+      decodeHtml(data[counter].correct_answer)
     ];
     var shuffled = [];
     for (var i = 0; i < 4; i++) {
@@ -139,10 +173,13 @@ function loadQuest(round) {
     for (var i = 0; i < 4; i++) {
       var ans = $("<p>").text(shuffled[i]);
       ans.addClass("answer");
+      ans.addClass("answer-style");
       if (shuffled[i] === data[counter].correct_answer) {
         ans.attr("data-answer", "ans");
+        ans.addClass("ansa");
       } else {
-        ans.attr("data-answer", "");
+        ans.attr("data-answer", "f");
+        ans.addClass("fa");
       }
       $("#ansDiv").append(ans);
     }
@@ -151,13 +188,19 @@ function loadQuest(round) {
     var t = $("<p>").text("True");
     var f = $("<p>").text("False");
     t.addClass("answer");
+    t.addClass("answer-style");
     f.addClass("answer");
+    f.addClass("answer-style");
     if (data[counter].correct_answer === "True") {
       t.attr("data-answer", "ans");
-      f.attr("data-answer", "");
+      t.addClass("ansa");
+      f.attr("data-answer", "f");
+      f.addClass("fa");
     } else {
       f.attr("data-answer", "ans");
-      t.attr("data-answer", "");
+      f.addClass("ansa");
+      t.attr("data-answer", "f");
+      t.addClass("fa");
     }
     $("#ansDiv").append(t);
     $("#ansDiv").append(f);
@@ -262,9 +305,32 @@ function newRound(round) {
 function endGame() {
   $("#qDiv").hide();
   $("#ansDiv").hide();
-  $("#newRound").hide();
-  alert("End Game!");
-  //Go to scores page
+  $("#newRound").text("Calculating Results...");
+  setTimeout(function(){
+    clearInterval(intervalId10);
+    clearInterval(intervalId1);
+    clearInterval(intervalId60);
+    $("#exampleModalLabel").text("Final Results!")
+    var postReq2 = "/api/game/score/" + myGameID;
+    var newDiv = $("<div>");
+    $.post(postReq2, function(data) {
+      //$("#leaderBoard").html(newTable);
+      for (i = 0; i < data.length; i++) {
+        console.log("HERE IS YOUR DATA IN LOOP!");
+        console.log(data[i]);
+        var newRow2 = $("<div>").attr("class", "row player");
+        var uname = $("<span>").text(data[i].username);
+        uname.attr("class", "col-md-6 player-name");
+        var uscore = $("<span>").text(data[i].score);
+        uscore.attr("class", "col-md-6 player-score");
+        uname.appendTo(newRow2);
+        uscore.appendTo(newRow2);
+        newRow2.appendTo(newDiv);
+      }
+      $("#modal-body").html(newDiv);
+    });
+    $("#player-wait-modal").modal("toggle");
+ }, 8000)
 }
 
 // var questions = [
