@@ -397,11 +397,12 @@ function timer5() {
     number5--;
     if (number5 === 0) {
       stopTimer();
+    } else if (number5 === 1) {
+      $("#openAnime").fadeOut();
     }
   }
   function stopTimer() {
     clearInterval(intervalId5);
-    $("#openAnime").fadeOut();
     $("#gameBoard").fadeIn();
   }
   runTimer();
