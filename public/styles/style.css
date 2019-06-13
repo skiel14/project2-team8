@@ -57,13 +57,13 @@ body {
   width: 95%;
 }
 
-.newRound {
+/* .newRound {
   font-weight: 800;
   font-size: 3em;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   display: inline-block;
-}
+} */
 
 h5.question {
   background: white;
@@ -184,7 +184,7 @@ h3 {
 }
 
 
-#newRound {
+#newRound, .newRound {
   font-size: 32px;
   font-weight: bold;
   color: #ffc857;
