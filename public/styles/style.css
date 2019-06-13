@@ -9,7 +9,19 @@ body {
   letter-spacing: 3px;
 }
 
-#gameBoard {
+.string {
+  font-weight: 800;
+  font-size: 4em;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+}
+
+.string .word {
+  display: inline-block;
+  line-height: 1em;
+}
+
+#gameBoard, #openAnime {
   width: 1024px; height: 100%;
   background-color: #544759;
   margin-bottom: 5%;
@@ -140,7 +152,7 @@ input[type=text]:focus, select {
 
 h1, h3, hr { margin: 10px 0px; }
 
-h1 {
+h1, #string {
   font-family: Sedgwick Ave Display;
   font-size: 42px;
   color: #ffc857;

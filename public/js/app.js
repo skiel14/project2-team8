@@ -1,4 +1,17 @@
 /* eslint-disable no-unused-vars */
+$("#leaderBoard").hide();
+$("#timeRemaining").hide();
+
+function shakeThis(item) {
+  anime({
+    targets: item,
+    keyframes: [{ translateY: -10 }, { translateY: 10 }, { translateY: 0 }],
+    duration: 500,
+    easing: "easeInOutQuad",
+    loop: false
+  });
+}
+
 function decodeHtml(html) {
   var txt = document.createElement("textarea");
   txt.innerHTML = html;
@@ -15,6 +28,7 @@ $("button").on("click", function() {
   }
 });
 $("#qAndA").on("click", ".ansa", function() {
+  shakeThis(this);
   console.log("correct!");
   console.log("THERE IS THIS!!!");
   console.log($(this).attr("class"));
@@ -53,6 +67,7 @@ $("#qAndA").on("click", ".ansa", function() {
 });
 
 $("#qAndA").on("click", ".fa", function() {
+  shakeThis(this);
   console.log("incorrect!");
   console.log("myuseridis:  " + myUserID);
   console.log("THERE IS THIS!!!");
@@ -96,6 +111,7 @@ var medQuestions;
 var hardQuestions;
 
 function startRound(currentRound) {
+  $("#leaderBoard").show();
   getQuest(currentRound);
   timer60();
 }
@@ -289,13 +305,13 @@ function timer60() {
   }
   runTimer();
   $("#newRound").hide();
-  $("#qDiv").show();
-  $("#ansDiv").show();
+  $("#qAndA").show();
+  $("#timeRemaining").show();
 }
 
 function newRound(round) {
-  $("#qDiv").hide();
-  $("#ansDiv").hide();
+  $("#timeRemaining").hide();
+  $("#qAndA").hide();
   var title = $("<h3>").text("Round " + round + "!");
   $("#newRound").empty();
   $("#newRound").append(title);
@@ -303,8 +319,7 @@ function newRound(round) {
 }
 
 function endGame() {
-  $("#qDiv").hide();
-  $("#ansDiv").hide();
+  $("#qAndA").hide();
   $("#newRound").text("Calculating Results...");
   setTimeout(function() {
     clearInterval(intervalId10);
@@ -333,239 +348,58 @@ function endGame() {
   }, 8000);
 }
 
-// var questions = [
-//   {
-//     questionType: "multiChoice",
-//     question:
-//       "What African country served as the setting for Tatooine in <em>Star Wars?</em>",
-//     answer: ["Morocco", "Egypt", "Tunisia", "Ethiopia"],
-//     name: "tatooineCountry",
-//     correct: "Tunisia",
-//     divClass: ".tatooineCountry"
-//   },
-//   {
-//     questionType: "trueFalse",
-//     question:
-//       "If Harrison Ford had not been cast as Han Solo, George Lucas's next choice was Christopher Walken.",
-//     answer: ["True", "False"],
-//     name: "hanSolo",
-//     correct: "True",
-//     divClass: ".hanSolo"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question:
-//       "What British actor portrayed the suave, sinister villain Hans Gruber<br>in the first <em>Die Hard</em> movie?",
-//     answer: ["Hugh Jackman", "Alan Rickman", "Pierce Brosnan", "Gary Oldman"],
-//     name: "hansGruber",
-//     correct: "Alan Rickman",
-//     divClass: ".hansGruber"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question:
-//       "What actor was the first choice to play 'Dirty Harry' Callahan,<br>the role eventually made iconic by Clint Eastwood?",
-//     answer: ["Steve McQueen", "Robert Shaw", "Marlon Brando", "Frank Sinatra"],
-//     name: "dirtyHarry",
-//     correct: "Frank Sinatra",
-//     divClass: ".dirtyHarry"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question:
-//       "Which film tells the true story of the schizophrenic mathematician John Nash?",
-//     answer: [
-//       "On the Edge",
-//       "Confessions of a Dangerous Mind",
-//       "A Beautiful Mind",
-//       "The Butterfly Effect"
-//     ],
-//     name: "johnNash",
-//     correct: "A Beautiful Mind",
-//     divClass: ".johnNash"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question: "What is the largest country in the world?",
-//     answer: ["United States", "China", "Canada", "Russia"],
-//     name: "largestCountry",
-//     correct: "China",
-//     divClass: ".largestCountry"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question: "In what country can you visit Machu Picchu?",
-//     answer: ["Chile", "Bolivia", "Peru", "Colombia"],
-//     name: "machuPicchu",
-//     correct: "Peru",
-//     divClass: ".machuPicchu"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question: "What is the largest continent on earth?",
-//     answer: ["Europe", "Antarctica", "Africa", "Asia"],
-//     name: "largestContinent",
-//     correct: "Asia",
-//     divClass: ".largestContinent"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question: "How many members are there in the US Congress?",
-//     answer: ["100", "538", "438", "535"],
-//     name: "membersOfCongress",
-//     correct: "538",
-//     divClass: ".membersOfCongress"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     question:
-//       "What is the subject of the 19th Amendment of the US Constitution?",
-//     answer: [
-//       "The abolition of slavery",
-//       "Women's suffrage",
-//       "Presidential Succession",
-//       "Prohibition"
-//     ],
-//     name: "constitutionalAmendment19",
-//     correct: "Women's suffrage",
-//     divClass: ".constitutionalAmendment19"
-//   },
-//   {
-//     questionType: "multiChoice",
-//     name: "abeLincoln",
-//     divClass: ".abeLincoln",
-//     question: "Who was the 16th President of the United States?",
-//     answer: [
-//       "John Quincy Adams",
-//       "Thomas Jefferson",
-//       "Abraham Lincoln",
-//       "Theodore Roosevelt"
-//     ],
-//     correct: "Abraham Lincoln"
-//   }
-// ];
+function answeredAnimation() {
+  anime({
+    targets: ".animation-keyframes-demo .el",
+    keyframes: [{ translateY: -10 }, { translateY: 10 }, { translateY: 0 }],
+    duration: 500,
+    easing: "easeOutElastic(1, .8)",
+    loop: true
+  });
+}
 
-// var thisQuestion = questions[1],
-//   questionNumber = 1,
-//   // playerName,
-//   seconds = 300000,
-//   correctAnswers,
-//   incorrectAnswers,
-//   labels = ["first", "second", "third", "forth"];
+function openAnimation() {
+  anime
+    .timeline({ loop: false })
+    .add({
+      targets: ".ml15 .word",
+      scale: [14, 1],
+      opacity: [0, 1],
+      easing: "easeOutCirc",
+      duration: 800,
+      delay: function(el, i) {
+        return 800 * i;
+      }
+    })
+    .add({
+      targets: ".ml15",
+      opacity: 0,
+      duration: 1000,
+      easing: "easeOutExpo",
+      delay: 1000
+    });
+}
 
-// //  Click to start, then display questions
-// $("#startButton").on("click", function() {
-//   // playerName = $("#playerNameText").val();
-//   displayQuestion();
+var intervalId5;
+var number5 = 5;
 
-//   $("#doneButton").css("display", "block");
-//   countdown();
-// });
-
-// // Display the questions
-// var displayQuestion = function() {
-//   $("#questions")
-//     .children()
-//     .not("#doneButton")
-//     .remove();
-
-//   // Display a question -- eventually from Sarah's API call
-//   $("#questionText").text(questionNumber + ".  " + thisQuestion.question);
-
-//   // Build lists of 4 radio buttons & answers for each question
-//   if (thisQuestion.questionType === "trueFalse") {
-//     //for (var j = 0; j < 2; j++) {
-//     //$(thisQuestion.divClass).append('<div class="answer"><input type="radio"  name="' + thisQuestion.name + '" value="' + thisQuestion.answer[j] + '"><label for="' + labels[j] + '">' + thisQuestion.answer[j] + '</label></div>'); }
-//     $("#answer0").append(thisQuestion.answer[0]);
-//     $("#answer1").append(thisQuestion.answer[1]);
-//   } else {
-//     {
-//       for (var j = 0; j <= 3; j++) {
-//         /* eslint-disable */
-//         $(thisQuestion.divClass).append(
-//           '<div class="answer"><input type="radio"  name="' +
-//             thisQuestion.name +
-//             '" value="' +
-//             thisQuestion.answer[j] +
-//             '"><label for="' +
-//             labels[j] +
-//             '">' +
-//             thisQuestion.answer[j] +
-//             "</label></div>"
-//         );
-//         /* eslint-enable */
-//       }
-//     }
-//     $("#questionsAndAnswers").prepend("<hr>");
-//   }
-// };
-
-// var countdown = function() {
-//   var timer = setInterval(function() {
-//     seconds -= 1;
-//     $("#secondsRemaining").html(seconds);
-
-//     if (seconds === 5) {
-//       $("#secondsRemaining").css("color", "red");
-//     }
-
-//     if (seconds <= 0) {
-//       checkAnswers();
-//       displayAnswers();
-//       clearInterval(timer);
-//       return;
-//     }
-//   }, 1000);
-// }; //  countdown
-
-// // Terminate timer loop when "Done" button is clicked
-// $("#doneButton").on("click", function() {
-//   seconds = 0;
-// });
-
-// function checkAnswers() {
-//   correctAnswers = 0;
-//   incorrectAnswers = 0;
-
-//   // loop through questions array & match radio buttons with values of "checked" to correct answers
-//   for (var i = 0; i < 10; i++) {
-//     if (
-//       /* eslint-disable */
-//       $('input:radio[name="' + thisQuestion.name + '"]:checked').val() ===
-//       thisQuestion.correct
-//     ) {
-//       correctAnswers++;
-//     } else {
-//       incorrectAnswers++;
-//     }
-//     /* eslint-enable */
-//   }
-// }
-
-// function displayAnswers() {
-//   $("#correctAnswers").append(correctAnswers);
-//   $("#incorrectAnswers").append(incorrectAnswers);
-
-//   $("#game-board").hide();
-//   $("#results").show();
-// }
-
-// $("#playAgainButton").on("click", function() {
-//   seconds = 30;
-//   correctAnswers = 0;
-//   incorrectAnswers = 0;
-
-//   $("#secondsRemaining").text("30");
-
-//   $("#correctAnswers").text("Correct Answers: ");
-//   $("#incorrectAnswers").text("Incorrect Answers: ");
-
-//   $("#results").hide();
-//   $("#game-board").show();
-//   $("#questions")
-//     .children()
-//     .not("#doneButton")
-//     .remove();
-//   $("#doneButton").css("display", "none");
-//   $("#playerNameText").val("");
-// });
+function timer5() {
+  number5 = 5;
+  function runTimer() {
+    $("#gameBoard").hide();
+    openAnimation();
+    clearInterval(intervalId5);
+    intervalId5 = setInterval(decrement, 1000);
+  }
+  function decrement() {
+    number5--;
+    if (number5 === 0) {
+      stopTimer();
+    }
+  }
+  function stopTimer() {
+    clearInterval(intervalId5);
+    $("#gameBoard").fadeIn();
+  }
+  runTimer();
+}
